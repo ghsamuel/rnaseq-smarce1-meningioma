@@ -7,7 +7,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=first.last@uconn.edu
+#SBATCH --mail-user=jtz25002@uconn.edu
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
 
@@ -15,7 +15,7 @@ echo `hostname`
 date
 
 #################################################################
-# Download genome and annotation from ENSEMBL
+# Download genome and annotation from 
 #################################################################
 
 # load software
@@ -25,25 +25,24 @@ module load samtools/1.16.1
 GENOMEDIR=../../genome
 mkdir -p $GENOMEDIR
 
-# we're using Fundulus heteroclitus from ensembl v112
-    # we'll download the genome, GTF annotation and transcript fasta
-    # https://useast.ensembl.org/Fundulus_heteroclitus/Info/Index
-
-# note that in these URLs we are downloading v112 specifically. 
+# we're using human genome (GENCODE Release 49 (GRCh38.p14))
+    # we'll download the genome, GTF(CHR Basic gene annotation)and genome (Genome sequence, primary assembly (GRCh38)) fasta
+    # https://www.gencodegenes.org/human/
+ 
 
 # download the genome
-wget -P ${GENOMEDIR} http://ftp.ensembl.org/pub/release-112/fasta/fundulus_heteroclitus/dna/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.dna_sm.toplevel.fa.gz
+wget -P ${GENOMEDIR} https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/GRCh38.primary_assembly.genome.fa.gz
 
 # download the GTF annotation
-wget -P ${GENOMEDIR} http://ftp.ensembl.org/pub/release-112/gtf/fundulus_heteroclitus/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.112.gtf.gz
+wget -P ${GENOMEDIR} https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/gencode.v49.basic.annotation.gtf.gz
 
 # download the transcript fasta
-wget -P ${GENOMEDIR} http://ftp.ensembl.org/pub/release-112/fasta/fundulus_heteroclitus/cdna/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.cdna.all.fa.gz
+wget -P ${GENOMEDIR} https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/gencode.v49.transcripts.fa.gz
 
 # decompress files
 gunzip ${GENOMEDIR}/*gz
 
 # generate simple samtools fai indexes 
-samtools faidx ${GENOMEDIR}/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.dna_sm.toplevel.fa
-samtools faidx ${GENOMEDIR}/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.cdna.all.fa
+samtools faidx ${GENOMEDIR}/GRCh38.primary_assembly.genome.fa
+samtools faidx ${GENOMEDIR}/gencode.v49.transcripts.fa
 

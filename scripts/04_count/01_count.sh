@@ -7,7 +7,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=first.last@uconn.edu
+#SBATCH --mail-user=jtz25002@uconn.edu
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
 
@@ -28,7 +28,7 @@ mkdir -p $OUTDIR
 ACCLIST=../../metadata/accessionlist.txt
 
 # gtf formatted annotation file
-GTF=../../genome/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.112.gtf 
+GTF=../../genome/gencode.v49.basic.annotation.gtf 
 
 # run htseq-count on each sample, up to 5 in parallel
 cat $ACCLIST | \

@@ -7,7 +7,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=first.last@uconn.edu
+#SBATCH --mail-user=jtz25002@uconn.edu
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
 
@@ -25,6 +25,6 @@ module load hisat2/2.2.1
 OUTDIR=../../genome/hisat2_index
 mkdir -p $OUTDIR
 
-GENOME=../../genome/Fundulus_heteroclitus.Fundulus_heteroclitus-3.0.2.dna_sm.toplevel.fa
+GENOME=../../genome/GRCh38.primary_assembly.genome.fa
 
-hisat2-build -p 16 $GENOME $OUTDIR/Fhet
+hisat2-build -p 16 $GENOME $OUTDIR/GRCh38_human

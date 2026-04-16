@@ -7,10 +7,10 @@
 #SBATCH --partition=xeon
 #SBATCH --qos=general
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=first.last@uconn.edu
+#SBATCH --mail-user=jtz25002@uconn.edu
 #SBATCH -o %x_%A_%a.out
 #SBATCH -e %x_%A_%a.err
-#SBATCH --array=[1-20]%10
+#SBATCH --array=[1-45]%10
 
 hostname
 date
@@ -31,7 +31,7 @@ mkdir -p ${OUTDIR}
 	# use the task ID to pull a single line, containing a single accession number from the accession list
 	# then construct the file names in the call to hisat2 as below
 
-INDEX=../../genome/hisat2_index/Fhet
+INDEX=../../genome/hisat2_index/GRCh38_human
 
 ACCLIST=../../metadata/accessionlist.txt
 
@@ -41,8 +41,7 @@ SAMPLE=$(sed -n ${SLURM_ARRAY_TASK_ID}p ${ACCLIST})
 hisat2 \
 	-p 4 \
 	-x ${INDEX} \
-	-1 ${INDIR}/${SAMPLE}_trim_1.fastq.gz \
-	-2 ${INDIR}/${SAMPLE}_trim_2.fastq.gz | \
+	-U ${INDIR}/${SAMPLE}_trimmed.fastq.gz|\
 samtools sort -@ 1 -T ${OUTDIR}/${SAMPLE} - >${OUTDIR}/${SAMPLE}.bam
 
 # index bam files

@@ -7,7 +7,7 @@
 #SBATCH --partition=general
 #SBATCH --qos=general
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=first.last@uconn.edu
+#SBATCH --mail-user=jtz25002@uconn.edu
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
 
@@ -27,4 +27,4 @@ mkdir -p $REPORTDIR
 ACCLIST=../../metadata/accessionlist.txt
 # run fastp in parallel, 10 samples at a time
 cat $ACCLIST | parallel -j 10 \
-    "fastqc --outdir $REPORTDIR $INDIR/{}_{1..2}.fastq.gz"
+    "fastqc --outdir $REPORTDIR $INDIR/{}.fastq.gz"

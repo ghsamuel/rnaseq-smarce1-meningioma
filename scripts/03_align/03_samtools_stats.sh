@@ -1,6 +1,6 @@
 #!/bin/bash 
 #SBATCH --job-name=samstats
-#SBATCH --mail-user=
+#SBATCH --mail-user=jtz25002@uconn.edu
 #SBATCH --mail-type=ALL
 #SBATCH -o %x_%j.out
 #SBATCH -e %x_%j.err
